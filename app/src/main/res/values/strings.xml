@@ -18,23 +18,10 @@
 <resources>
     <string name="app_name"><![CDATA[Cantv]]></string>
     <string name="browse_title"><![CDATA[Cantv]]></string>
-    <string name="episodes">剧集</string>
-    <string name="movie_0_0_0_hot">电影</string>
-    <string name="child_0_0_0_hot">儿童</string>
-    <string name="anime_0_0_0_hot">动漫</string>
-    <string name="variety_0_0_0_hot">综艺</string>
-    <string name="series_0_0_0_hot">电视剧</string>
-    <string name="documentary_0_0_0_hot">纪录片</string>
-    <string name="movie_10038_0_0_hot">欧美电影</string>
-    <string name="movie_0_0_10023_hot">动画电影</string>
-    <string name="series_10038_0_0_hot">欧美剧</string>
-    <string name="series_10202_0_0_hot">韩剧</string>
-    <string name="series_10130_0_0_hot">日剧</string>
-    <string name="anime_10038_0_0_hot">欧美动画</string>
-    <string name="anime_10130_0_0_hot">日本动漫</string>
-    <string name="provider_host">http://www.kantv.im</string>
+    <string name="episodes"></string>
+    <string name="provider_host"></string>
     <string name="playback_tag">PLAYBACK_TAG</string>
     <string name="ytplayback_tag">YT_PLAYBACK_TAG</string>
-    <string name="youtube_api_key">AIzaSyB33K1PUH3-yhBS4kDG3NdT-Ig_9X21N-4</string>
+    <string name="youtube_api_key"></string>
     <string name="ua">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36</string>
 </resources>
