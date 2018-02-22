@@ -19,6 +19,7 @@
     <string name="app_name"><![CDATA[Cantv]]></string>
     <string name="browse_title"><![CDATA[Cantv]]></string>
     <string name="episodes"></string>
+    <string name="load_pages">3</string>
     <string name="provider_host"></string>
     <string name="playback_tag">PLAYBACK_TAG</string>
     <string name="ytplayback_tag">YT_PLAYBACK_TAG</string>
