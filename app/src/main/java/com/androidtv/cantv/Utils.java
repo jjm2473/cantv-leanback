@@ -167,7 +167,7 @@ public class Utils {
             Document body = Jsoup.parse(html);
             Elements video_list_of_page_n = body.select("ul.cfix").first().select("li");
             Integer pagemax = Integer.valueOf(body.select("a.tcdNumber").last().text());
-            Integer pgmax = min(pagemax,3);
+            Integer pgmax = min(pagemax,Integer.valueOf(ctx.getString(R.string.load_pages)));
             for (Integer pgcnt=1;pgcnt<=pgmax;pgcnt++) {
                 for(Element video:video_list_of_page_n) {
                     epijson.append("{\"title\":\"");
