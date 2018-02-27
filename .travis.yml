@@ -1,2 +1,17 @@
 language: android
-gradle build connectedCheck
+sudo: required
+jdk: oraclejdk8
+
+before_cache:
+ -rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+ -rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+ directories:
+ -$HOME/.gradle/caches/
+ -$HOME/.gradle/wrapper/
+ 
+ env:
+ global:
+ - ANDROID_API=27
+ - EMULATOR_API=27
+ - ANDROID_BUILD_TOOLS=27.0.2
