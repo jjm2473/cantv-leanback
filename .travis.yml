@@ -11,4 +11,4 @@ android:
 before_install:
   gradle wrapper
 script:
-   - ./gradlew build connectedCheck
+   - ./gradlew clean build
