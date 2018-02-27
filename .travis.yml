@@ -12,3 +12,5 @@ before_install:
   gradle wrapper
 script:
    - ./gradlew clean build
+after_failure:
+   - ./gradlew clean check --debug
