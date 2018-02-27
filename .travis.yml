@@ -1,0 +1,14 @@
+language: android
+sudo: required
+jdk: oraclejdk8
+android:
+ components:
+    - tools
+    - tools
+    - platform-tools
+    - build-tools-27.0.2
+    - android-27
+before_install:
+  gradle wrapper
+script:
+   - ./gradlew build connectedCheck
