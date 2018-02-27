@@ -9,8 +9,6 @@ android:
     - build-tools-27.0.2
     - android-27
 before_install:
-  gradle wrapper
+  - chmod +x gradlew
 script:
    - ./gradlew clean build
-after_failure:
-   - ./gradlew clean check --debug
