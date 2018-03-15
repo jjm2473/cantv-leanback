@@ -88,13 +88,45 @@ public class Utils {
         String vurl = "";
         try {
             String html= fetchHTMLString(ctx,ctx.getString(R.string.provider_host)+rurlString);
-            String[] p1 = html.split("\\{vjsPlay\\(\"");
-            String[] p2 = p1[1].split("\"\\)\\}\\<\\/script\\>");
+            //String[] p1 = html.split("\\{vjsPlay\\(\"");
+            //String[] p2 = p1[1].split("\"\\)\\}\\<\\/script\\>");
+            String[] p1 = html.split("\\;console.log\\(\"changeVideoContent\",\"norefereriframe\",\"");
+            String[] p2 = p1[1].split("\"\\);");
             vurl = p2[0];
         } catch (IOException e) {
             Log.e("GetVideoUrl", "Failed");
         } finally {
             return vurl;
+        }
+    }
+
+    /**
+     * Search Videos by a given keyword.
+     *
+     * @return the json representation of the response
+     * @throws IOException
+     */
+    public static String searchVideosByKeyword(Context ctx, String kw) throws IOException {
+        //
+        StringBuilder resjson = new StringBuilder("{\"result\":[");
+        try {
+            String html= fetchHTMLString(ctx,ctx.getString(R.string.provider_host)+"/search-"+kw);
+            Document body = Jsoup.parse(html);
+            Elements res_videos = body.select("li.mtg-search-result");
+            for (Element res_video:res_videos) {
+                resjson.append("{\"title\":\"");
+                resjson.append(res_video.select("h4.mtg-result-info-title").first().select("a").first().text());
+                resjson.append("\",\"card\":\"");
+                resjson.append(res_video.select("img").first().attr("src").split("\\?")[0]);
+                resjson.append("\",\"sources\":[\"");
+                resjson.append(res_video.select("a").first().attr("href"));
+                resjson.append("\"]},");
+            }
+            //Log.d("ep",epijson);
+        } catch (IOException e) {
+            Log.e("SearchVideosByKeyword", "Failed");
+        } finally {
+            return resjson.toString().substring(0,resjson.length()-1)+"]}";
         }
     }
 
@@ -167,7 +199,7 @@ public class Utils {
             Document body = Jsoup.parse(html);
             Elements video_list_of_page_n = body.select("ul.cfix").first().select("li");
             Integer pagemax = Integer.valueOf(body.select("a.tcdNumber").last().text());
-            Integer pgmax = min(pagemax,Integer.valueOf(ctx.getString(R.string.load_pages)));
+            Integer pgmax = min(pagemax,Integer.valueOf(ctx.getString(R.string.grab_max_pages)));
             for (Integer pgcnt=1;pgcnt<=pgmax;pgcnt++) {
                 for(Element video:video_list_of_page_n) {
                     epijson.append("{\"title\":\"");

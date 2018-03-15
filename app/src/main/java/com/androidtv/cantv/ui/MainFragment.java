@@ -33,6 +33,10 @@ import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
+
+import com.androidtv.cantv.R;
 import com.androidtv.cantv.data.FetchVideoService;
 import com.androidtv.cantv.data.VideoContract;
 import com.androidtv.cantv.model.Video;
@@ -69,6 +73,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
         // Final initialization, modifying UI elements.
         super.onActivityCreated(savedInstanceState);
 
+        setSearchAffordanceColor(ContextCompat.getColor(getActivity(), R.color.search_opaque));
         setupEventListeners();
         prepareEntranceTransition();
 
@@ -91,6 +96,14 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
     }
 
     private void setupEventListeners() {
+        setOnSearchClickedListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         setOnItemViewClickedListener(new ItemViewClickedListener());
     }
 
