@@ -1,7 +1,5 @@
 # Android TV Leanback practice - Cantv
 
-[![Join the chat at https://gitter.im/googlesamples/cantv](https://badges.gitter.im/googlesamples/cantv.svg)](https://gitter.im/googlesamples/cantv?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 This is an Android TV app, which is designed to play online videos sourced by 3rd-party video collection services.
 
 
