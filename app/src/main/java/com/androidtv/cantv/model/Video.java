@@ -149,6 +149,16 @@ public final class Video implements Parcelable {
             );
         }
 
+        public static Video buildFromSearchResult(String title,String videourl,String cardimageurl) {
+            return new Video(
+                    0,
+                    "SEARCH",
+                    title,
+                    videourl,
+                    cardimageurl
+            );
+        }
+
         public Video build() {
             return new Video(
                     id,

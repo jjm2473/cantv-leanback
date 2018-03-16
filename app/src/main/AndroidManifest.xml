@@ -37,6 +37,7 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|layoutDirection"
             android:launchMode="singleTask"
             android:resizeableActivity="true" />
+        <activity android:name=".ui.SearchActivity" />
 
         <!-- Provides search suggestions for keywords against video metadata. -->
         <provider

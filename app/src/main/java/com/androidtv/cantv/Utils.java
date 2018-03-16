@@ -107,7 +107,6 @@ public class Utils {
      * @throws IOException
      */
     public static String searchVideosByKeyword(Context ctx, String kw) throws IOException {
-        //
         StringBuilder resjson = new StringBuilder("{\"result\":[");
         try {
             String html= fetchHTMLString(ctx,ctx.getString(R.string.provider_host)+"/search-"+kw);
@@ -115,18 +114,18 @@ public class Utils {
             Elements res_videos = body.select("li.mtg-search-result");
             for (Element res_video:res_videos) {
                 resjson.append("{\"title\":\"");
-                resjson.append(res_video.select("h4.mtg-result-info-title").first().select("a").first().text());
+                resjson.append(res_video.select("h4.mtg-result-info-title").first().select("a").first().text().replace('"','\''));
                 resjson.append("\",\"card\":\"");
                 resjson.append(res_video.select("img").first().attr("src").split("\\?")[0]);
                 resjson.append("\",\"sources\":[\"");
                 resjson.append(res_video.select("a").first().attr("href"));
                 resjson.append("\"]},");
             }
-            //Log.d("ep",epijson);
+            //Log.d("res",resjson.toString());
         } catch (IOException e) {
             Log.e("SearchVideosByKeyword", "Failed");
         } finally {
-            return resjson.toString().substring(0,resjson.length()-1)+"]}";
+            return resjson.toString().substring(0,resjson.length())+"]}";
         }
     }
 
@@ -147,7 +146,7 @@ public class Utils {
                 Elements eps_per_page = ep_page.select("li");
                 for (Element ep:eps_per_page) {
                     Element a = ep.select("a").first();
-                    epijson += "\""+a.attr("onclick").split(",")[1]+"\":\""+a.text()+"\",";
+                    epijson += "\""+a.attr("onclick").split(",")[1]+"\":\""+a.text().replace('"','\'')+"\",";
                 }
             }
             epijson = epijson.substring(0,epijson.length()-1)+"}";
@@ -169,15 +168,13 @@ public class Utils {
         List<String> categories = Arrays.asList("movie_0_0_0_hot","child_0_0_0_hot","anime_0_0_0_hot","variety_0_0_0_hot",
                 "series_0_0_0_hot","documentary_0_0_0_hot","movie_10038_0_0_hot","movie_0_0_10023_hot","series_10038_0_0_hot",
                 "series_10202_0_0_hot","series_10130_0_0_hot","anime_10038_0_0_hot","anime_10130_0_0_hot");
-        //List<String> categories = Arrays.asList("movie_0_0_0_hot");
+        //List<String> categories = Arrays.asList("documentary_0_0_0_hot");
         StringBuilder avjson = new StringBuilder("{\"allvideos\":[");
         try {
             for (String catelem:categories) {
                 avjson.append(getVideoByCategory(ctx,catelem));
                 avjson.append(",");
             }
-            //String avjs = avjson.substring(0,avjson.length()-1)+"]}";
-            //Log.d("ep",epijson);
         } catch (IOException e) {
             Log.e("GetAllVideos", "Failed");
         } finally {
@@ -203,9 +200,9 @@ public class Utils {
             for (Integer pgcnt=1;pgcnt<=pgmax;pgcnt++) {
                 for(Element video:video_list_of_page_n) {
                     epijson.append("{\"title\":\"");
-                    epijson.append(video.select("p").text().replaceAll(" 第","第").split(" ")[0]);
+                    epijson.append(video.select("p").text().replaceAll(" 第","第").split(" ")[0].replace('"','\''));
                     epijson.append("\",\"card\":\"");
-                    epijson.append(video.select("img.cover").attr("src"));
+                    epijson.append(video.select("img.cover").attr("src").split("\\?")[0]);
                     epijson.append("\",\"sources\":[\"");
                     epijson.append(video.select("a.mtg-index-list-pic").attr("href"));
                     epijson.append("\"]},");
