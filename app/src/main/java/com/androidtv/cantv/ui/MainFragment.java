@@ -34,6 +34,7 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 
 import com.androidtv.cantv.R;
@@ -45,6 +46,7 @@ import com.androidtv.cantv.presenter.CardPresenter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Date;
 
 /*
  * Main class to show BrowseFragment with header and rows of videos
@@ -180,8 +182,13 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
                     data.moveToNext();
                 }
 
-                //startEntranceTransition();
-                // cursors have loaded.
+                //update videos every 3 days
+                // Start an Intent to fetch the videos.
+                Long ts = System.currentTimeMillis() % 30;
+                if (ts<2) {
+                    Intent serviceIntent = new Intent(getActivity(), FetchVideoService.class);
+                    getActivity().startService(serviceIntent);
+                }
             } else {
                 // The CursorAdapter contains a Cursor pointing to all videos.
                 mVideoCursorAdapters.get(loaderId).changeCursor(data);

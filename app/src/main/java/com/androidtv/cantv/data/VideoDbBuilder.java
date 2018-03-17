@@ -79,12 +79,12 @@ public class VideoDbBuilder {
         for (int i = 0; i < categoryArray.length(); i++) {
             JSONArray videoArray;
 
-            JSONObject category = categoryArray.getJSONObject(i);
+            JSONObject category = categoryArray.getJSONObject(categoryArray.length()-1-i);
             String categoryName = category.getString(TAG_CATEGORY);
             videoArray = category.getJSONArray(TAG_MEDIA);
 
             for (int j = 0; j < videoArray.length(); j++) {
-                JSONObject video = videoArray.getJSONObject(j);
+                JSONObject video = videoArray.getJSONObject(videoArray.length()-1-j);
 
                 // If there are no URLs, skip this video entry.
                 JSONArray urls = video.optJSONArray(TAG_SOURCES);

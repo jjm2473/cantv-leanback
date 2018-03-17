@@ -133,7 +133,7 @@ public class VideoProvider extends ContentProvider {
                         selectionArgs,
                         null,
                         null,
-                        sortOrder//"video_url desc"//
+                        "_id desc"//sortOrder//"video_url desc"//
                 );
                 break;
             }

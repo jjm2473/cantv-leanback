@@ -165,10 +165,11 @@ public class Utils {
      * @throws IOException
      */
     public static String getAllVideos(Context ctx) throws IOException {
+        Log.d("get All Videos","started");
         List<String> categories = Arrays.asList("movie_0_0_0_hot","child_0_0_0_hot","anime_0_0_0_hot","variety_0_0_0_hot",
                 "series_0_0_0_hot","documentary_0_0_0_hot","movie_10038_0_0_hot","movie_0_0_10023_hot","series_10038_0_0_hot",
                 "series_10202_0_0_hot","series_10130_0_0_hot","anime_10038_0_0_hot","anime_10130_0_0_hot");
-        //List<String> categories = Arrays.asList("documentary_0_0_0_hot");
+        //List<String> categories = Arrays.asList("child_0_0_0_hot","anime_0_0_0_hot");
         StringBuilder avjson = new StringBuilder("{\"allvideos\":[");
         try {
             for (String catelem:categories) {

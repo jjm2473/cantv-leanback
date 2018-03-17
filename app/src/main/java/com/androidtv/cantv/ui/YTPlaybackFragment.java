@@ -17,7 +17,6 @@
 package com.androidtv.cantv.ui;
 
 import android.annotation.TargetApi;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,8 +33,6 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v17.leanback.widget.SparseArrayObjectAdapter;
 import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
 
 import com.androidtv.cantv.R;
 import com.androidtv.cantv.Utils;
@@ -68,13 +65,9 @@ public class YTPlaybackFragment extends RowsFragment {
     private Playlist mPlaylist;
     private SparseArrayObjectAdapter mEpisodeActionAdapter;
 
-    private View mView;
-    private ListView mListview;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getActivity().setContentView(R.layout.youtube_playback);
         mVideo = getActivity().getIntent().getParcelableExtra("Video");
         mYoutubeApiKey = getActivity().getString(R.string.youtube_api_key);
         mPlaylist = new Playlist();
@@ -90,7 +83,6 @@ public class YTPlaybackFragment extends RowsFragment {
             String isyt = data.getString("isyt");
             String js = data.getString("jsonstring");
             if (js!=null) {
-                //Log.d("js",js);
                 try {
                     JSONObject jo = new JSONObject(js);
                     Iterator<String> epkeys = jo.keys();
@@ -109,8 +101,6 @@ public class YTPlaybackFragment extends RowsFragment {
                 }
             }
             if (isyt!=null) {
-                //Log.d("isyt",isyt);
-                //setContentView(R.layout.youtube_playback);
                 try {
                     YouTubePlayerFragment youTubePlayerFragment = //new YouTubePlayerFragment();
                             (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
@@ -175,26 +165,7 @@ public class YTPlaybackFragment extends RowsFragment {
             }
         }
     };
-/*
-    Runnable netCheckIfYoutube = new Runnable() {
-        @Override
-        public void run() {
-            String mVideoUrl = getString(R.string.videoplayback_url_prefix)+"/isyt"+mVideo.videoUrl;
-            try {
-                String isyt = Utils.fetchJSONString(mVideoUrl);
-                Message msg = new Message();
-                Bundle data = new Bundle();
-                data.putString("isyt",isyt);
-                msg.setData(data);
-                handler.sendMessage(msg);
-                //Log.d("fetchResult",js.toString());
-            } catch (Exception e) {
-                Log.e("FetchIsYoutubeFailed", "Get isyoutube failed");
-                e.printStackTrace();
-            }
-        }
-    };
-*/
+
     @Override
     public void onStart() {
         super.onStart();
@@ -234,29 +205,13 @@ public class YTPlaybackFragment extends RowsFragment {
     }
 
     private void initializePlayer() {
-        //BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-        //TrackSelection.Factory videoTrackSelectionFactory =
-        //        new AdaptiveTrackSelection.Factory(bandwidthMeter);
-        //mTrackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
-        //mPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), mTrackSelector);
-        //mPlayerAdapter = new LeanbackPlayerAdapter(getActivity(), mPlayer, UPDATE_DELAY);
-        //mPlaylistActionListener = new PlaylistActionListener(mPlaylist);
-        //mPlayerGlue = new VideoPlayerGlue(getActivity(), mPlayerAdapter, mPlaylistActionListener);
-        //mPlayerGlue.setHost(new VideoFragmentGlueHost(this));
-        //mPlayerGlue.playWhenPrepared();
-
         //play(mVideo);
-
     }
 
     private void releasePlayer() {
         if (mPlayer != null) {
             mPlayer.release();
             mPlayer = null;
-            //mTrackSelector = null;
-            //mPlayerGlue = null;
-            //mPlayerAdapter = null;
-            //mPlaylistActionListener = null;
         }
     }
 
@@ -301,24 +256,6 @@ public class YTPlaybackFragment extends RowsFragment {
         return episodeVideosAdapter;
     };
 
-    /*
-    public void skipToNext() {
-        mPlayerGlue.next();
-    }
-
-    public void skipToPrevious() {
-        mPlayerGlue.previous();
-    }
-
-    public void rewind() {
-        mPlayerGlue.rewind();
-    }
-
-    public void fastForward() {
-        mPlayerGlue.fastForward();
-    }
-    */
-
     /** Opens the video details page when a related video has been clicked. */
     private final class ItemViewClickedListener implements OnItemViewClickedListener {
         @Override
@@ -335,33 +272,4 @@ public class YTPlaybackFragment extends RowsFragment {
             }
         }
     }
-
-    /*
-    class PlaylistActionListener implements VideoPlayerGlue.OnActionClickedListener {
-
-        private Playlist mPlaylist;
-
-        PlaylistActionListener(Playlist playlist) {
-            this.mPlaylist = playlist;
-        }
-
-        @Override
-        public void onPrevious() {
-            play(mPlaylist.previous());
-        }
-
-        @Override
-        public void onNext() {
-            play(mPlaylist.next());
-        }
-
-        public void onReverse() {
-            mPlaylist.reverse();
-            mEpisodeActionAdapter = setupEpisodesVideos();
-            ArrayObjectAdapter mRowsAdapter = initializeEpisodesRow();
-            //setAdapter(mRowsAdapter);
-            //play(mPlaylist.getFirstVideo());
-        }
-    }
-    */
 }

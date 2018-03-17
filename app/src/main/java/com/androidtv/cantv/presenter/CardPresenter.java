@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
@@ -74,7 +75,6 @@ public class CardPresenter extends Presenter {
 
         ImageCardView cardView = (ImageCardView) viewHolder.view;
         cardView.setTitleText(video.title);
-        //cardView.setContentText(video.studio);
 
         if (video.cardImageUrl != null) {
             // Set card size from dimension resources.
