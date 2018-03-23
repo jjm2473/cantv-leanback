@@ -16,12 +16,8 @@
 
 package com.androidtv.cantv;
 
-import com.androidtv.cantv.R;
 import android.content.Context;
-import android.graphics.Point;
 import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -88,8 +83,6 @@ public class Utils {
         String vurl = "";
         try {
             String html= fetchHTMLString(ctx,ctx.getString(R.string.provider_host)+rurlString);
-            //String[] p1 = html.split("\\{vjsPlay\\(\"");
-            //String[] p2 = p1[1].split("\"\\)\\}\\<\\/script\\>");
             String[] p1 = html.split("\\;console.log\\(\"changeVideoContent\",\"norefereriframe\",\"");
             String[] p2 = p1[1].split("\"\\);");
             vurl = p2[0];
@@ -121,7 +114,6 @@ public class Utils {
                 resjson.append(res_video.select("a").first().attr("href"));
                 resjson.append("\"]},");
             }
-            //Log.d("res",resjson.toString());
         } catch (IOException e) {
             Log.e("SearchVideosByKeyword", "Failed");
         } finally {
@@ -150,7 +142,6 @@ public class Utils {
                 }
             }
             epijson = epijson.substring(0,epijson.length()-1)+"}";
-            //Log.d("ep",epijson);
         } catch (IOException e) {
             Log.e("GetVideoEps", "Failed");
         } finally {
@@ -165,11 +156,9 @@ public class Utils {
      * @throws IOException
      */
     public static String getAllVideos(Context ctx) throws IOException {
-        Log.d("get All Videos","started");
         List<String> categories = Arrays.asList("movie_0_0_0_hot","child_0_0_0_hot","anime_0_0_0_hot","variety_0_0_0_hot",
                 "series_0_0_0_hot","documentary_0_0_0_hot","movie_10038_0_0_hot","movie_0_0_10023_hot","series_10038_0_0_hot",
                 "series_10202_0_0_hot","series_10130_0_0_hot","anime_10038_0_0_hot","anime_10130_0_0_hot");
-        //List<String> categories = Arrays.asList("child_0_0_0_hot","anime_0_0_0_hot");
         StringBuilder avjson = new StringBuilder("{\"allvideos\":[");
         try {
             for (String catelem:categories) {
@@ -215,8 +204,6 @@ public class Utils {
                 body = Jsoup.parse(html);
                 video_list_of_page_n = body.select("ul.cfix").first().select("li");
             }
-            //return epijson.toString().substring(0,epijson.length()-1)+"]}";
-            //Log.d("ep",epijson);
         } catch (IOException e) {
             Log.e("GetVideoByCategory", "Failed");
         } finally {

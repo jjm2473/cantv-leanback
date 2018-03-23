@@ -34,7 +34,6 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 
 import com.androidtv.cantv.R;
@@ -46,7 +45,6 @@ import com.androidtv.cantv.presenter.CardPresenter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Date;
 
 /*
  * Main class to show BrowseFragment with header and rows of videos
